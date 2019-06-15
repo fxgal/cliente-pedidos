@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import Cliente from './Cliente';
 
@@ -18,10 +19,10 @@ export const Clientes = props => {
   return (
     <Fragment>
       <h2>Clientes</h2>
-      <a href="nuevo-cliente.html" className="btn btn-verde nvo-cliente">
+      <Link to={'/clientes/nuevo'} className="btn btn-verde nvo-cliente">
         <i className="fas fa-plus-circle"></i>
         Nuevo Cliente
-      </a>
+      </Link>
       {clientes.map(cliente => (
         <Cliente key={cliente._id} cliente={cliente} />
       ))}
