@@ -5,7 +5,7 @@ import Cliente from './Cliente';
 
 import clienteAxios from '../../config/axios';
 
-export const Clientes = props => {
+function Clientes() {
   const [clientes, setClientes] = useState([]);
 
   const consultarApi = async () => {
@@ -15,7 +15,7 @@ export const Clientes = props => {
   //useEffect es similar a componentDidMount
   useEffect(() => {
     consultarApi();
-  }, []);
+  }, [clientes]);
   return (
     <Fragment>
       <h2>Clientes</h2>
@@ -29,6 +29,6 @@ export const Clientes = props => {
       <ul className="listado-clientes"></ul>
     </Fragment>
   );
-};
+}
 
 export default Clientes;
