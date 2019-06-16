@@ -1,19 +1,31 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import clienteAxios from '../../config/axios';
 
-function ClienteAdd({ history }) {
+function ClienteEdit({ history, match }) {
   const ClienteSwal = withReactContent(Swal);
 
+  const { id } = match.params;
+
   const [cliente, setCliente] = useState({
+    _id: '',
     nombre: '',
     apellido: '',
     empresa: '',
     email: '',
     telefono: ''
   });
+
+  const consultarApi = async () => {
+    const clientesQuery = await clienteAxios.get(`/clientes/${id}`);
+    setCliente(clientesQuery.data.cliente);
+  };
+
+  useEffect(() => {
+    consultarApi();
+  }, []);
 
   //Leer datos de form
   const updateState = e => {
@@ -40,7 +52,7 @@ function ClienteAdd({ history }) {
   //Guardar en la BD
   const handleSubmit = e => {
     e.preventDefault();
-    clienteAxios.post('/clientes', cliente).then(res => {
+    clienteAxios.put(`/clientes/${cliente._id}`, cliente).then(res => {
       ClienteSwal.fire({
         title: res.data.error ? 'Error' : '¡Bien!',
         text: res.data.mensaje,
@@ -53,7 +65,7 @@ function ClienteAdd({ history }) {
 
   return (
     <Fragment>
-      <h2>Nuevo Cliente</h2>
+      <h2>Editar Cliente</h2>
       <form onSubmit={handleSubmit}>
         <legend>Llena todos los campos</legend>
 
@@ -63,6 +75,7 @@ function ClienteAdd({ history }) {
             type="text"
             placeholder="Nombre Cliente"
             name="nombre"
+            value={cliente.nombre}
             onChange={updateState}
           />
         </div>
@@ -73,6 +86,7 @@ function ClienteAdd({ history }) {
             type="text"
             placeholder="Apellido Cliente"
             name="apellido"
+            value={cliente.apellido}
             onChange={updateState}
           />
         </div>
@@ -83,6 +97,7 @@ function ClienteAdd({ history }) {
             type="text"
             placeholder="Empresa Cliente"
             name="empresa"
+            value={cliente.empresa}
             onChange={updateState}
           />
         </div>
@@ -93,6 +108,7 @@ function ClienteAdd({ history }) {
             type="email"
             placeholder="Email Cliente"
             name="email"
+            value={cliente.email}
             onChange={updateState}
           />
         </div>
@@ -103,6 +119,7 @@ function ClienteAdd({ history }) {
             type="text"
             placeholder="Teléfono Cliente"
             name="telefono"
+            value={cliente.telefono}
             onChange={updateState}
           />
         </div>
@@ -111,7 +128,7 @@ function ClienteAdd({ history }) {
           <input
             type="submit"
             className="btn btn-azul"
-            value="Agregar Cliente"
+            value="Actualizar Cliente"
             disabled={validarCliente()}
           />
         </div>
@@ -120,4 +137,4 @@ function ClienteAdd({ history }) {
   );
 }
 
-export default withRouter(ClienteAdd);
+export default withRouter(ClienteEdit);

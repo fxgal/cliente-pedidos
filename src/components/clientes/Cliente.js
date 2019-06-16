@@ -15,7 +15,7 @@ function Cliente({ cliente }) {
         <p>Tel: {telefono}</p>
       </div>
       <div className="acciones">
-        <Link to={'/cliente/editar/' + _id} className="btn btn-azul">
+        <Link to={`/clientes/editar/${_id}`} className="btn btn-azul">
           <i className="fas fa-pen-alt"></i>
           Editar Cliente
         </Link>
