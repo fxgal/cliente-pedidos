@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import clienteAxios from '../../config/axios';
+import conectionAxios from '../../config/axios';
 
 function ClienteEdit({ history, match }) {
   const ClienteSwal = withReactContent(Swal);
@@ -19,7 +19,7 @@ function ClienteEdit({ history, match }) {
   });
 
   const consultarApi = async () => {
-    const clientesQuery = await clienteAxios.get(`/clientes/${id}`);
+    const clientesQuery = await conectionAxios.get(`/clientes/${id}`);
     setCliente(clientesQuery.data.cliente);
   };
 
@@ -52,7 +52,7 @@ function ClienteEdit({ history, match }) {
   //Guardar en la BD
   const handleSubmit = e => {
     e.preventDefault();
-    clienteAxios.put(`/clientes/${cliente._id}`, cliente).then(res => {
+    conectionAxios.put(`/clientes/${cliente._id}`, cliente).then(res => {
       ClienteSwal.fire({
         title: res.data.error ? 'Error' : '¡Bien!',
         text: res.data.mensaje,

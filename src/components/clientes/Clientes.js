@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import Cliente from './Cliente';
 
-import clienteAxios from '../../config/axios';
+import conectionAxios from '../../config/axios';
 
 function Clientes() {
   const [clientes, setClientes] = useState([]);
 
   const consultarApi = async () => {
-    const clientesQuery = await clienteAxios.get('/clientes');
+    const clientesQuery = await conectionAxios.get('/clientes');
     setClientes(clientesQuery.data.clientes);
   };
   //useEffect es similar a componentDidMount

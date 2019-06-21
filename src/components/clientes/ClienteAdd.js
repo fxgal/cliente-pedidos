@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import clienteAxios from '../../config/axios';
+import conectionAxios from '../../config/axios';
 
 function ClienteAdd({ history }) {
   const ClienteSwal = withReactContent(Swal);
@@ -40,7 +40,7 @@ function ClienteAdd({ history }) {
   //Guardar en la BD
   const handleSubmit = e => {
     e.preventDefault();
-    clienteAxios.post('/clientes', cliente).then(res => {
+    conectionAxios.post('/clientes', cliente).then(res => {
       ClienteSwal.fire({
         title: res.data.error ? 'Error' : '¡Bien!',
         text: res.data.mensaje,

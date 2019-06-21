@@ -1,7 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import clienteAxios from '../../config/axios';
+import conectionAxios from '../../config/axios';
 import { Link } from 'react-router-dom';
 
 function Cliente({ cliente }) {
@@ -20,7 +20,7 @@ function Cliente({ cliente }) {
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.value) {
-        clienteAxios.delete(`/clientes/${_id}`).then(res => {
+        conectionAxios.delete(`/clientes/${_id}`).then(res => {
           ClienteSwal.fire({
             title: res.data.error ? 'Error' : '¡Bien!',
             text: res.data.mensaje,

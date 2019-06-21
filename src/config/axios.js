@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const clienteAxios = axios.create({
+const conectionAxios = axios.create({
   baseURL: 'http://localhost:5000'
 });
 
-export default clienteAxios;
+export default conectionAxios;
