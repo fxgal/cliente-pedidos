@@ -16,7 +16,7 @@ function Clientes() {
   //useEffect es similar a componentDidMount
   useEffect(() => {
     consultarApi();
-  }, [clientes]);
+  }, []);
 
   if (!clientes.length) return <Spinner />;
   return (

@@ -14,7 +14,7 @@ export const Productos = props => {
 
   useEffect(() => {
     consultarApi();
-  }, [productos]);
+  }, []);
 
   if (!productos.length) return <Spinner />;
   return (
