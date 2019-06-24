@@ -7,12 +7,12 @@ export const ProductosAdd = props => {
       <form action="/productos" method="POST">
         <legend>Llena todos los campos</legend>
 
-        <div class="campo">
+        <div className="campo">
           <label>Nombre:</label>
           <input type="text" placeholder="Nombre Producto" name="nombre" />
         </div>
 
-        <div class="campo">
+        <div className="campo">
           <label>Precio:</label>
           <input
             type="number"
@@ -23,13 +23,17 @@ export const ProductosAdd = props => {
           />
         </div>
 
-        <div class="campo">
+        <div className="campo">
           <label>Imagen:</label>
           <input type="file" name="imagen" />
         </div>
 
-        <div class="enviar">
-          <input type="submit" class="btn btn-azul" value="Agregar Producto" />
+        <div className="enviar">
+          <input
+            type="submit"
+            className="btn btn-azul"
+            value="Agregar Producto"
+          />
         </div>
       </form>
     </Fragment>
