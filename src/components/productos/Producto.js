@@ -30,12 +30,21 @@ export const Producto = ({ producto }) => {
       }
     });
   };
+
+  const imagenStyle = {
+    maxWidth: '500px'
+  };
+
   return (
     <Fragment>
       <div className="info-producto">
         <p className="nombre">{producto.nombre}</p>
         <p className="precio">$ {producto.precio} </p>
-        <img src={`${BASE_URL}/${producto.imagen}`} alt={producto.nombre} />
+        <img
+          src={`${BASE_URL}/${producto.imagen}`}
+          alt={producto.nombre}
+          style={imagenStyle}
+        />
       </div>
       <div className="acciones">
         <Link to={`/productos/edit/${producto._id}`} className="btn btn-azul">
@@ -48,7 +57,7 @@ export const Producto = ({ producto }) => {
           onClick={productoDelete}
         >
           <i className="fas fa-times"></i>
-          Eliminar Cliente
+          Eliminar Producto
         </button>
       </div>
     </Fragment>

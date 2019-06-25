@@ -18,6 +18,12 @@ function Clientes() {
     consultarApi();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      console.log('cleaned up clientes');
+    };
+  }, []);
+
   if (!clientes.length) return <Spinner />;
   return (
     <Fragment>

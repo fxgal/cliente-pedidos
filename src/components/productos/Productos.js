@@ -16,6 +16,12 @@ export const Productos = props => {
     consultarApi();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      console.log('cleaned up productos');
+    };
+  }, []);
+
   if (!productos.length) return <Spinner />;
   return (
     <Fragment>
