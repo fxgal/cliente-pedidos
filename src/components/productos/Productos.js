@@ -7,14 +7,13 @@ import Spinner from '../layout/Spinner';
 export const Productos = props => {
   const [productos, setProductos] = useState([]);
 
-  const consultarApi = async () => {
-    const productosQuery = await conectionAxios.get('/productos');
-    setProductos(productosQuery.data.productos);
-  };
-
   useEffect(() => {
+    const consultarApi = async () => {
+      const productosQuery = await conectionAxios.get('/productos');
+      setProductos(productosQuery.data.productos);
+    };
     consultarApi();
-  }, []);
+  }, [productos]);
 
   useEffect(() => {
     return () => {
