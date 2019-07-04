@@ -21,7 +21,7 @@ export const Productos = props => {
     };
   }, []);
 
-  if (!productos.length) return <Spinner />;
+  // if (!productos.length) return <Spinner />;
   return (
     <Fragment>
       <h2>Productos</h2>

@@ -24,7 +24,7 @@ function Clientes() {
     };
   }, []);
 
-  if (!clientes.length) return <Spinner />;
+  // if (!clientes.length) return <Spinner />;
   return (
     <Fragment>
       <h2>Clientes</h2>
