@@ -44,6 +44,10 @@ function Cliente({ cliente }) {
         <p>Tel: {telefono}</p>
       </div>
       <div className="acciones">
+        <Link to={`/pedidos/add/${_id}`} className="btn btn-verde">
+          <i className="fas fa-plus-circle"></i>
+          Nuevo Pedido
+        </Link>
         <Link to={`/clientes/editar/${_id}`} className="btn btn-azul">
           <i className="fas fa-pen-alt"></i>
           Editar Cliente
