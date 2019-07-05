@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import conectionAxios from '../../config/axios';
 import FormSearchProducto from './FormSearchProducto';
+import FormProductoAdd from './FormProductoAdd';
 
 function PedidoAdd(props) {
   //Id del cliente
@@ -31,13 +32,28 @@ function PedidoAdd(props) {
       const searchQuery = await conectionAxios.get(
         `/productos/search/${search}`
       );
-      setProductos(searchQuery.data.productos);
-      console.log(productos);
+
+      if (searchQuery.data.productos[0]) {
+        let resultado = searchQuery.data.productos[0];
+        resultado.cantidad = 0;
+        setProductos([...productos, resultado]);
+      }
     }
   };
 
   const readProductos = e => {
     setSearch(e.target.value);
+  };
+
+  const incrementar = index => {
+    let lista = productos;
+    lista[index].cantidad++;
+    setProductos(lista);
+  };
+  const decrementar = index => {
+    let lista = productos;
+    lista[index].cantidad--;
+    setProductos(lista);
   };
 
   return (
@@ -54,6 +70,17 @@ function PedidoAdd(props) {
         searchProducto={searchProducto}
         readProductos={readProductos}
       />
+      <ul className="resumen">
+        {productos.map((producto, index) => (
+          <FormProductoAdd
+            key={producto._id}
+            producto={producto}
+            incrementar={incrementar}
+            decrementar={decrementar}
+            index={index}
+          />
+        ))}
+      </ul>
     </Fragment>
   );
 }
