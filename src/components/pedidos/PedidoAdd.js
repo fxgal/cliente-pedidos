@@ -46,14 +46,17 @@ function PedidoAdd(props) {
   };
 
   const incrementar = index => {
-    let lista = productos;
-    lista[index].cantidad++;
-    setProductos(lista);
+    let productosLista = [...productos];
+    if (!productosLista[index]) return;
+    productosLista[index].cantidad++;
+    setProductos(productosLista);
   };
+
   const decrementar = index => {
-    let lista = productos;
-    lista[index].cantidad--;
-    setProductos(lista);
+    let productosLista = [...productos];
+    if (!productosLista[index]) return;
+    productosLista[index].cantidad--;
+    setProductos(productosLista);
   };
 
   return (

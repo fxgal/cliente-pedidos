@@ -2,7 +2,6 @@ import React from 'react';
 
 function FormProductoAdd(props) {
   const { producto, incrementar, decrementar, index } = props;
-
   return (
     <li>
       <div className="texto-producto">
@@ -12,6 +11,7 @@ function FormProductoAdd(props) {
       <div className="acciones">
         <div className="contenedor-cantidad">
           <i className="fas fa-minus" onClick={() => decrementar(index)}></i>
+          {/* <p>{producto.cantidad}</p> */}
           <input
             type="number"
             name="cantidad"
