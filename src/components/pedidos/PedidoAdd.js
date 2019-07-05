@@ -1,11 +1,14 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import conectionAxios from '../../config/axios';
+import FormSearchProducto from './FormSearchProducto';
 
 function PedidoAdd(props) {
   //Id del cliente
   const { id } = props.match.params;
 
   const [cliente, setCliente] = useState([]);
+  const [productos, setProductos] = useState([]);
+  const [search, setSearch] = useState('');
 
   const consultarApi = async () => {
     const clientesQuery = await conectionAxios.get(`/clientes/${id}`);
@@ -22,6 +25,21 @@ function PedidoAdd(props) {
     };
   }, []);
 
+  const searchProducto = async e => {
+    e.preventDefault();
+    if (search) {
+      const searchQuery = await conectionAxios.get(
+        `/productos/search/${search}`
+      );
+      setProductos(searchQuery.data.productos);
+      console.log(productos);
+    }
+  };
+
+  const readProductos = e => {
+    setSearch(e.target.value);
+  };
+
   return (
     <Fragment>
       <h2>Nuevo Pedido</h2>
@@ -32,6 +50,10 @@ function PedidoAdd(props) {
         </p>
         <p>Teléfono: {cliente.telefono}</p>
       </div>
+      <FormSearchProducto
+        searchProducto={searchProducto}
+        readProductos={readProductos}
+      />
     </Fragment>
   );
 }
