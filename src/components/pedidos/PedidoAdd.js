@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import conectionAxios from '../../config/axios';
 import FormSearchProducto from './FormSearchProducto';
 import FormProductoAdd from './FormProductoAdd';
+import Swal from 'sweetalert2';
+import { withRouter } from 'react-router-dom';
 
 function PedidoAdd(props) {
   //Id del cliente
@@ -10,6 +12,7 @@ function PedidoAdd(props) {
   const [cliente, setCliente] = useState([]);
   const [productos, setProductos] = useState([]);
   const [search, setSearch] = useState('');
+  const [total, setTotal] = useState(0);
 
   const consultarApi = async () => {
     const clientesQuery = await conectionAxios.get(`/clientes/${id}`);
@@ -18,7 +21,8 @@ function PedidoAdd(props) {
 
   useEffect(() => {
     consultarApi();
-  }, []);
+    calcularTotal();
+  }, [productos]);
 
   useEffect(() => {
     return () => {
@@ -50,6 +54,7 @@ function PedidoAdd(props) {
     if (!productosLista[index]) return;
     productosLista[index].cantidad++;
     setProductos(productosLista);
+    calcularTotal();
   };
 
   const decrementar = index => {
@@ -57,11 +62,43 @@ function PedidoAdd(props) {
     if (!productosLista[index]) return;
     productosLista[index].cantidad--;
     setProductos(productosLista);
+    calcularTotal();
   };
 
   const eliminar = id => {
     let productosLista = productos.filter(producto => producto._id !== id);
     setProductos(productosLista);
+    calcularTotal();
+  };
+
+  const calcularTotal = () => {
+    if (productos.length === 0) {
+      setTotal(0);
+      return;
+    }
+    let nuevoTotal = 0;
+    productos.map(
+      producto => (nuevoTotal += producto.precio * producto.cantidad)
+    );
+    setTotal(nuevoTotal);
+  };
+
+  const guardarPedido = async () => {
+    if (total === 0) return;
+    const nuevoPedido = {
+      cliente: cliente._id,
+      pedido: productos,
+      total
+    };
+    conectionAxios.post('/pedidos', nuevoPedido).then(res => {
+      Swal.fire({
+        title: res.data.error ? 'Error' : '¡Bien!',
+        text: res.data.mensaje,
+        type: res.data.error ? 'error' : 'success'
+      }).then(() => {
+        if (!res.data.error) return props.history.push('/');
+      });
+    });
   };
 
   return (
@@ -90,8 +127,21 @@ function PedidoAdd(props) {
           />
         ))}
       </ul>
+      <p className="total">
+        Total a pagar: <span>$ {total} </span>
+      </p>
+      {total > 0 ? (
+        <div className="enviar">
+          <input
+            onClick={() => guardarPedido()}
+            type="button"
+            className="btn btn-azul"
+            value="Agregar Pedido"
+          />
+        </div>
+      ) : null}
     </Fragment>
   );
 }
 
-export default PedidoAdd;
+export default withRouter(PedidoAdd);
