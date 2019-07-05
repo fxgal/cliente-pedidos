@@ -59,6 +59,11 @@ function PedidoAdd(props) {
     setProductos(productosLista);
   };
 
+  const eliminar = id => {
+    let productosLista = productos.filter(producto => producto._id !== id);
+    setProductos(productosLista);
+  };
+
   return (
     <Fragment>
       <h2>Nuevo Pedido</h2>
@@ -80,6 +85,7 @@ function PedidoAdd(props) {
             producto={producto}
             incrementar={incrementar}
             decrementar={decrementar}
+            eliminar={eliminar}
             index={index}
           />
         ))}
