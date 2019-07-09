@@ -17,6 +17,7 @@ function PedidoAdd(props) {
   const consultarApi = async () => {
     const clientesQuery = await conectionAxios.get(`/clientes/${id}`);
     setCliente(clientesQuery.data.cliente);
+    return;
   };
 
   useEffect(() => {
@@ -81,6 +82,7 @@ function PedidoAdd(props) {
       producto => (nuevoTotal += producto.precio * producto.cantidad)
     );
     setTotal(nuevoTotal);
+    return;
   };
 
   const guardarPedido = async () => {

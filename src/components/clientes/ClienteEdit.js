@@ -15,12 +15,15 @@ function ClienteEdit({ history, match }) {
     telefono: ''
   });
 
+  const consultarApi = async () => {
+    const clientesQuery = await conectionAxios.get(`/clientes/${id}`);
+    setCliente(clientesQuery.data.cliente);
+    return;
+  };
+
   useEffect(() => {
-    const consultarApi = async () => {
-      const clientesQuery = await conectionAxios.get(`/clientes/${id}`);
-      setCliente(clientesQuery.data.cliente);
-    };
     consultarApi();
+    return;
   }, []);
 
   //Leer datos de form
