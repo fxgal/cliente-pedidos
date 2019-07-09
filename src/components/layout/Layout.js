@@ -14,6 +14,7 @@ import ProductosEdit from '../productos/ProductoEdit';
 import Producto from '../productos/Producto';
 //Pedidos
 import pedidoAdd from '../pedidos/PedidoAdd';
+import PedidoEdit from '../pedidos/PedidoEdit';
 
 const Layout = () => {
   return (
@@ -35,6 +36,7 @@ const Layout = () => {
             {/* Pedidos */}
             <Route exact path="/pedidos" component={Pedidos} />
             <Route exact path="/pedidos/add/:id" component={pedidoAdd} />
+            <Route exact path="/pedidos/edit/:id" component={PedidoEdit} />
           </Switch>
         </main>
       </div>

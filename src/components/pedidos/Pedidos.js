@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Pedido from './Pedido';
 import conectionAxios from '../../config/axios';
-import { withRouter } from 'react-router-dom';
 
 export const Pedidos = props => {
   const [pedidos, setPedidos] = useState([]);
@@ -12,7 +11,18 @@ export const Pedidos = props => {
   };
 
   useEffect(() => {
-    consultarPedidos();
+    const pedidosQuery = async () => {
+      const res = await conectionAxios.get('/pedidos');
+      setPedidos(res.data.pedidos);
+    };
+    pedidosQuery();
+    // consultarPedidos();
+  }, [pedidos]);
+
+  useEffect(() => {
+    return () => {
+      console.log('cleaned up pedidos');
+    };
   }, []);
 
   return (
