@@ -12,11 +12,12 @@ function Clientes() {
   const consultarApi = async () => {
     const clientesQuery = await conectionAxios.get('/clientes');
     setClientes(clientesQuery.data.clientes);
+    console.log(clientes.length);
   };
   //useEffect es similar a componentDidMount
   useEffect(() => {
     consultarApi();
-  }, []);
+  }, [clientes.length]);
 
   useEffect(() => {
     return () => {

@@ -17,7 +17,7 @@ export const Pedidos = props => {
     };
     pedidosQuery();
     // consultarPedidos();
-  }, [pedidos]);
+  }, [pedidos.length]);
 
   useEffect(() => {
     return () => {

@@ -13,7 +13,7 @@ export const Productos = props => {
       setProductos(productosQuery.data.productos);
     };
     consultarApi();
-  }, [productos]);
+  }, [productos.length]);
 
   useEffect(() => {
     return () => {
