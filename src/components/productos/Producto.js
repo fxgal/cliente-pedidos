@@ -1,11 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { BASE_URL } from '../../config/CONSTANTS';
 import conectionAxios from '../../config/axios';
 
-export const Producto = ({ producto }) => {
+export const Producto = (props) => {
+  const { producto } = props;
+  const { api } = props;
   const { _id, nombre } = producto;
+  useEffect(() => {
+    console.log(props);
+    
+  }, [])
   const productoDelete = () => {
     Swal.fire({
       title: `¿Eliminar el producto: ${nombre}?`,
@@ -24,6 +30,7 @@ export const Producto = ({ producto }) => {
             text: res.data.mensaje,
             type: res.data.error ? 'error' : 'success'
           }).then(() => {
+            api();
             // if (!res.data.error) return history.push('/');
           });
         });

@@ -7,19 +7,14 @@ import Spinner from '../layout/Spinner';
 export const Productos = props => {
   const [productos, setProductos] = useState([]);
 
-  useEffect(() => {
-    const consultarApi = async () => {
-      const productosQuery = await conectionAxios.get('/productos');
-      setProductos(productosQuery.data.productos);
-    };
-    consultarApi();
-  }, [productos.length]);
+  const consultarApi = async () => {
+    const productosQuery = await conectionAxios.get('/productos');
+    setProductos(productosQuery.data.productos);
+  };
 
   useEffect(() => {
-    return () => {
-      console.log('cleaned up productos');
-    };
-  }, []);
+    consultarApi();
+  }, [productos.length]);
 
   // if (!productos.length) return <Spinner />;
   return (
@@ -33,7 +28,7 @@ export const Productos = props => {
       <ul className="listado-productos">
         {productos.map(producto => (
           <li className="producto" key={producto._id}>
-            <Producto producto={producto} />
+            <Producto producto={producto} api={consultarApi} />
           </li>
         ))}
       </ul>
